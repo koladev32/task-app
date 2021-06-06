@@ -1,5 +1,5 @@
 import graphene
-from todos import schema
+from tasks import schema
 
 
 class Query(graphene.ObjectType, schema.Query):
