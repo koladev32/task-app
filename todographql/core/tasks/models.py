@@ -1,9 +1,10 @@
 from django.db import models
+from core.nodes.models import Node
 
 
 class Task(models.Model):
-    parent = models.ForeignKey('self', on_delete=models.CASCADE)
-    node = models.ForeignKey('nodes.Node', on_delete=models.CASCADE)
+    parent = models.ForeignKey('self', on_delete=models.CASCADE, null=True)
+    node = models.ForeignKey(Node, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     body = models.TextField()
     is_completed = models.BooleanField(default=False)
