@@ -40,7 +40,9 @@ INSTALLED_APPS = [
 
     # created apps
     'graphene_django',
-    'todos',
+    'core',
+    'core.tasks',
+    'core.nodes'
 
 ]
 

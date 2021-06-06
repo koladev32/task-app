@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 
 
-class TodosConfig(AppConfig):
+class TasksConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'todos'
+    name = 'core.tasks'
+    label = 'core_tasks'
