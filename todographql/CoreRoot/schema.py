@@ -1,9 +1,15 @@
 import graphene
-from tasks import schema
+
+from core.nodes.schema import NodeQuery, NodeMutations
+from core.tasks.schema import TaskQuery, TaskMutations
 
 
-class Query(graphene.ObjectType, schema.Query):
+class Query(graphene.ObjectType, TaskQuery, NodeQuery):
     pass
 
 
-schema = graphene.Schema(query=Query, mutation=schema.TodoMutations)
+class Mutation(NodeMutations, TaskMutations):
+    pass
+
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

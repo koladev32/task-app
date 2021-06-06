@@ -1,6 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType
-from nodes.models import Node
+from core.nodes.models import Node
 
 
 class NodeType(DjangoObjectType):
@@ -9,7 +9,7 @@ class NodeType(DjangoObjectType):
         fields = ['id', 'title', 'created', 'updated']
 
 
-class Query(graphene.AbstractType):
+class NodeQuery(graphene.AbstractType):
     nodes = graphene.List(
         NodeType)
 

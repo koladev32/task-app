@@ -1,6 +1,8 @@
 import graphene
 from graphene_django.types import DjangoObjectType
-from tasks.models import Task
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from core.tasks.models import Task
+from core.nodes.models import Node
 
 
 class SubTaskType(DjangoObjectType):
@@ -20,7 +22,7 @@ class TaskType(DjangoObjectType):
         return sub_tasks
 
 
-class Query(graphene.AbstractType):
+class TaskQuery(graphene.AbstractType):
     tasks = graphene.List(
         TaskType)
 
@@ -90,11 +92,14 @@ class CreateTask(graphene.Mutation):
     class Arguments:
         title = graphene.String(required=True)
         body = graphene.String(required=True)
+        node = graphene.ID(required=True)
 
     task = graphene.Field(TaskType)
 
     @classmethod
     def mutate(cls, root, info, **kwargs):
+        kwargs['node'] = Node.objects.get(pk=kwargs['node'])
+
         task = Task.objects.create(**kwargs)
         task.save()
 
@@ -113,6 +118,8 @@ class CreateSubTask(graphene.Mutation):
     @classmethod
     def mutate(cls, root, info, **kwargs):
         kwargs['parent'] = Task.objects.get(id=kwargs['parent'])
+        kwargs['node'] = Node.objects.get(pk=kwargs['node'])
+
         task = Task.objects.create(**kwargs)
         task.save()
 
