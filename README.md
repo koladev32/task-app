@@ -1,2 +1,2 @@
 # task-app
-Kind of clone of 
+Kind of clone of Workflowy
