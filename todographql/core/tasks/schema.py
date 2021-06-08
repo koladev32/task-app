@@ -1,6 +1,5 @@
 import graphene
 from graphene_django.types import DjangoObjectType
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from core.tasks.models import Task
 from core.nodes.models import Node
 
@@ -15,9 +14,9 @@ class TaskType(DjangoObjectType):
     class Meta:
         model = Task
         fields = ['title', 'body', 'id', 'created', 'updated', 'parent', 'is_completed', 'node']
-    sub_task = graphene.List(SubTaskType)
+    sub_tasks = graphene.List(SubTaskType)
 
-    def resolve_sub_task(self, info):
+    def resolve_sub_tasks(self, info):
         sub_tasks = Task.objects.filter(parent__id=self.pk)
         return sub_tasks
 
