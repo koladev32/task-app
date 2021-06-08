@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # created apps
     'corsheaders',
+    "channels",
     'graphene_django',
     'core',
     'core.tasks',
@@ -76,7 +77,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'CoreRoot.wsgi.application'
+ASGI_APPLICATION = 'CoreRoot.asgi.application'
+
 
 
 # Database
