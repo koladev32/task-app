@@ -1,4 +1,4 @@
-import {gql} from '@apollo/client';
+import {gql} from "@apollo/client";
 
 // export const CREATE_TASK = gql`
 //
@@ -18,13 +18,13 @@ import {gql} from '@apollo/client';
 // `;
 
 export const UPDATE_TASK = gql`
-    mutation UpdateTask($id: ID!, $body: String, $title: String) {
-        updateTask(id: $id, body: $body, title: $title) {
-            task {
-                id
-                title
-                body
-            }
-        }
+  mutation UpdateTask($id: ID!, $body: String, $title: String) {
+    updateTask(id: $id, body: $body, title: $title) {
+      task {
+        id
+        title
+        body
+      }
     }
+  }
 `;
