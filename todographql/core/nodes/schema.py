@@ -42,11 +42,11 @@ class NodeQuery(graphene.AbstractType):
 class NodeTaskQuery(graphene.AbstractType):
     node_tasks = graphene.List(
         TaskType,
-        id=graphene.ID()
+        node_id=graphene.ID()
     )
 
     def resolve_node_tasks(root, info, **kwargs):
-        node_id = kwargs.get('id')
+        node_id = kwargs.get('node_id')
         tasks = Task.objects.filter(node__pk=node_id, parent=None)
 
         return tasks
