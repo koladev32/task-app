@@ -33,8 +33,9 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
   };
   return (
     <div className="flex flex-col space-x-2">
-      <div key={`${props.id}`}>
-        <button onClick={() => history.push(`/tasks/${props.id}`)}>koko</button>
+      <div key={`${props.id}`} className="flex flex-wrap items-center space-x-2">
+        <button className='rounded-full h-3 w-3 bg-black flex items-center justify-center font-mono'
+                onClick={() => history.push(`/tasks/${props.id}`)} />
         <input
           className="w-64"
           placeholder="Enter tex t   "
@@ -44,8 +45,9 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
       </div>
       <ul className="list-disc flex flex-col ml-32 space-y-3 mt-1">
         {props.subTasks.map((subTask, index) => (
-          <li key={`${subTask.id}`} className="ml-8" onClick={() => history.push(`/tasks/${subTask.id}`) }>
-            <div >
+            <div key={`${subTask.id}`} className="flex flex-wrap items-center space-x-2 ml-8" onClick={() => history.push(`/tasks/${subTask.id}`) }>
+              <button className='rounded-full h-3 w-3 bg-black flex items-center justify-center font-mono'
+                      onClick={() => history.push(`/tasks/${props.id}`)} />
               <input
                 className="w-64"
                 placeholder="Enter new task"
@@ -53,7 +55,6 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
                 defaultValue={subTask.body}
               />
             </div>
-          </li>
         ))}
       </ul>
     </div>

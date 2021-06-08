@@ -18,14 +18,13 @@ const ListTasks: React.FC<ListTasksProps> = (
         {props.tasks &&
           props.tasks.map((task, idx) => {
             return (
-              <li key={idx}>
                 <Task
                   node={task.node}
                   body={task.body}
                   subTasks={task.subTasks}
                   id={task.id}
+                  key={idx}
                 />
-              </li>
             );
           })}
       </ul>
