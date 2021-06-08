@@ -14,6 +14,7 @@ class TaskType(DjangoObjectType):
     class Meta:
         model = Task
         fields = ['title', 'body', 'id', 'created', 'updated', 'parent', 'is_completed', 'node']
+
     sub_tasks = graphene.List(SubTaskType)
 
     def resolve_sub_tasks(self, info):
@@ -50,6 +51,15 @@ class TaskQuery(graphene.AbstractType):
             return Task.objects.get(is_completed=is_completed)
 
         return None
+
+
+class TaskSubTasksQuery(graphene.AbstractType):
+    sub_tasks = graphene.List(TaskType,
+                              task_id=graphene.ID())
+
+    def resolve_sub_tasks(self, root, **kwargs):
+        sub_tasks = Task.objects.filter(parent__id=kwargs['task_id'])
+        return sub_tasks
 
 
 class UpdateTask(graphene.Mutation):
