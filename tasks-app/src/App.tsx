@@ -39,6 +39,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={() => <div>Hello</div>} />
           <Route path="/nodes/:nodeId" component={TaskPage} />
+          <Route path="/nodes/:nodeId/task/task:taskId/" component={TaskPage} />
         </Switch>
       </div>
     </Router>

@@ -4,9 +4,9 @@ import { useMutation } from "@apollo/client";
 import { UPDATE_TASK } from "../apollo/mutations";
 
 export interface TaskProps {
-  id: number | string;
+  id?: number | string;
   node: NodeProps;
-  body: string;
+  body?: string;
   subTasks: Array<any>;
 }
 
