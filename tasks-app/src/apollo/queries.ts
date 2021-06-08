@@ -1,25 +1,23 @@
 import {gql} from "@apollo/client";
 
-export const GET_TASKS = gql`
-  query {
-    tasks {
+export const GET_NODE_TASKS = gql`
+  query{
+  nodeTasks(nodeId: 1){
+    title,
+    body,
+    parent {
       id
-      title
+    },
+    subTasks {
+      id,
+      title,
       body
-      subTasks {
-        id
-        title
-        body
-        node {
-          id
-          title
-        }
-      }
-      node {
-        id
-      }
+    },
+    node{
+      id
     }
   }
+}
 `;
 
 export const GET_NODES = gql`
@@ -30,3 +28,23 @@ export const GET_NODES = gql`
     }
   }
 `;
+
+export const GET_TASK_SUBTASKS = gql`
+    query{
+  subTasks(taskId: 2){
+    title,
+    body,
+    parent {
+      id
+    },
+    subTasks {
+      id,
+      body,
+      title,
+      parent {
+        id
+      }
+    }
+  }
+}
+`

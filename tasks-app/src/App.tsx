@@ -5,12 +5,14 @@ import ListTasks from "./components/ListTasks";
 import ListNodes from "./components/ListNodes";
 import {useQuery} from "@apollo/client";
 import {TaskProps} from "./components/Task";
-import {GET_NODES, GET_TASKS} from "./apollo/queries";
+import {GET_NODES, GET_NODE_TASKS} from "./apollo/queries";
 
 function App() {
-  const dataNodes = useQuery(GET_NODES);
+  const dataNodes = useQuery(GET_NODES, {
+    variables: {nodeId: 1}
+  });
 
-  const dataTasks = useQuery(GET_TASKS);
+  const dataTasks = useQuery(GET_NODE_TASKS);
   const [tasks, setTasks] = useState<Array<TaskProps> | null>([]);
 
   function handleAdd() {
@@ -48,7 +50,7 @@ function App() {
           </div>
           {/*Task*/}
           <div className="bg-blend-darken h-screen justify-center pt-6 items-center">
-            <ListTasks tasks={dataTasks.data?.tasks} handleAdd={handleAdd}/>
+            <ListTasks tasks={dataTasks.data?.nodeTasks} handleAdd={handleAdd}/>
           </div>
         </div>
       </div>
