@@ -1,5 +1,6 @@
 import React from "react";
 import Task, { TaskProps } from "./Task";
+import {useHistory} from "react-router";
 
 export interface ListTasksProps {
   tasks: Array<TaskProps> | null;
@@ -8,12 +9,14 @@ export interface ListTasksProps {
 const ListTasks: React.FC<ListTasksProps> = (
   props: ListTasksProps
 ): React.ReactElement => {
-  if (!props || !props.tasks) {
+    const history = useHistory();
+
+    if (!props || !props.tasks) {
     return <div>Loading</div>;
   }
   return (
     <div className="w-full space-y-6">
-      <h3 className="text-2xl">Task</h3>
+      <h3 className="text-2xl" onClick={() => history.goBack()}>Previous</h3>
       <ul className="space-y-4 list-disc">
         {props.tasks &&
           props.tasks.map((task, idx) => {

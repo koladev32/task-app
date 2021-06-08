@@ -8,6 +8,7 @@ export const GET_NODE_TASKS = gql`
       body
       parent {
         id
+        title
       }
       subTasks {
         id
@@ -16,6 +17,7 @@ export const GET_NODE_TASKS = gql`
       }
       node {
         id
+        title
       }
     }
   }
@@ -37,6 +39,7 @@ export const GET_TASK_SUBTASKS = gql`
       body
       parent {
         id
+        title
       }
       subTasks {
         id
@@ -44,7 +47,12 @@ export const GET_TASK_SUBTASKS = gql`
         title
         parent {
           id
+          title
         }
+      }
+      node {
+      id
+      title
       }
     }
   }
