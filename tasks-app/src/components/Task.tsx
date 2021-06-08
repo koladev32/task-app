@@ -7,6 +7,7 @@ export interface TaskProps {
   id: number | string;
   node: NodeProps;
   body: string;
+  subTasks: Array<any>;
 }
 
 const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
@@ -20,7 +21,7 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
     }, 2000);
 
     if (e.key === "Enter" && e.target.value.length > 0) {
-      console.log("Adding  ");
+      console.log("Adding   ");
     }
 
     if (e.key === "Backspace" && e.target.value.length <= 0) {
@@ -28,17 +29,29 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
     }
   };
   return (
-      <div className="flex flex-row space-x-2">
-        <button className="bg-black">Sub</button>
-
+      <div className="flex flex-col space-x-2">
         <div key={`${props.id}`}>
           <input
               className="w-64"
-              placeholder="Enter   tex t  "
+              placeholder="Enter tex t   "
               onKeyDown={(e) => _handleKeyDown(e, props.id)}
               defaultValue={props.body}
           />
         </div>
+        <ul className="list-disc flex flex-col ml-32 space-y-3 mt-1">
+          {props.subTasks.map((subTask, index) => (
+              <li className='ml-8'>
+                <div key={`${subTask.id}`}>
+                  <input
+                      className="w-64"
+                      placeholder="Enter new task"
+                      onKeyDown={(e) => _handleKeyDown(e, subTask.id)}
+                      defaultValue={subTask.body}
+                  />
+                </div>
+              </li>
+          ))}
+        </ul>
       </div>
   );
 };

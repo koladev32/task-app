@@ -6,7 +6,7 @@ export const GET_TASKS = gql`
       id
       title
       body
-      subTask {
+      subTasks {
         id
         title
         body

@@ -44,11 +44,11 @@ function App() {
         <div className="flex flex-row overflow-hidden space-x-8">
           {/*Node*/}
           <div className="bg-green-500 h-screen w-1/5 pt-6">
-            <ListNodes nodes={dataNodes.data.nodes}/>
+            <ListNodes nodes={dataNodes.data?.nodes}/>
           </div>
           {/*Task*/}
           <div className="bg-blend-darken h-screen justify-center pt-6 items-center">
-            <ListTasks tasks={dataTasks.data.tasks} handleAdd={handleAdd}/>
+            <ListTasks tasks={dataTasks.data?.tasks} handleAdd={handleAdd}/>
           </div>
         </div>
       </div>

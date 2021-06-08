@@ -15,12 +15,17 @@ const ListTasks: React.FC<ListTasksProps> = (
     return (
         <div className="w-full space-y-6">
             <h3 className="text-2xl">Task</h3>
-            <ul className="space-y-4">
+            <ul className="space-y-4 list-disc">
                 {props.tasks &&
                 props.tasks.map((task, idx) => {
                     return (
                         <li key={idx}>
-                            <Task node={task.node} body={task.body} id={task.id}/>
+                            <Task
+                                node={task.node}
+                                body={task.body}
+                                subTasks={task.subTasks}
+                                id={task.id}
+                            />
                         </li>
                     );
                 })}
