@@ -35,6 +35,7 @@ export const GET_NODES = gql`
 export const GET_TASK_SUBTASKS = gql`
   query TaskType($taskId: ID!) {
     subTasks(taskId: $taskId) {
+      id
       title
       body
       parent {
