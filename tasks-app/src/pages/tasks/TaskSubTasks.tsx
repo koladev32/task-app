@@ -28,7 +28,7 @@ const TaskSubTasks: React.FC = () => {
 
     return (
         <div className="bg-blend-darken h-screen justify-center pt-6 items-center">
-            <ListTasks tasks={dataTasks.data?.nodeTasks} handleAdd={handleAdd} />
+            <ListTasks tasks={dataTasks.data?.subTasks} handleAdd={handleAdd} />
         </div>
     );
 };

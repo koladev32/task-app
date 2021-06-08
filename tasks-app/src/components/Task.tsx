@@ -2,6 +2,7 @@ import React from "react";
 import { NodeProps } from "./Node";
 import { useMutation } from "@apollo/client";
 import { UPDATE_TASK } from "../apollo/mutations";
+import {useHistory} from "react-router";
 
 export interface TaskProps {
   id?: number | string;
@@ -11,6 +12,8 @@ export interface TaskProps {
 }
 
 const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
+  const history = useHistory();
+
   const [updateTask] = useMutation(UPDATE_TASK);
 
   const _handleKeyDown = (e: any, id: any) => {
@@ -31,6 +34,7 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
   return (
     <div className="flex flex-col space-x-2">
       <div key={`${props.id}`}>
+        <button onClick={() => history.push(`/tasks/${props.id}`)}>koko</button>
         <input
           className="w-64"
           placeholder="Enter tex t   "
@@ -40,8 +44,8 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
       </div>
       <ul className="list-disc flex flex-col ml-32 space-y-3 mt-1">
         {props.subTasks.map((subTask, index) => (
-          <li className="ml-8">
-            <div key={`${subTask.id}`}>
+          <li key={`${subTask.id}`} className="ml-8" onClick={() => history.push(`/tasks/${subTask.id}`) }>
+            <div >
               <input
                 className="w-64"
                 placeholder="Enter new task"
