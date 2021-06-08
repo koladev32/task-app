@@ -1,6 +1,8 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 from core.nodes.models import Node
+from core.tasks.models import Task
+from core.tasks.schema import TaskType
 
 
 class NodeType(DjangoObjectType):
@@ -35,6 +37,19 @@ class NodeQuery(graphene.AbstractType):
             return Node.objects.get(title=title)
 
         return None
+
+
+class NodeTaskQuery(graphene.AbstractType):
+    node_tasks = graphene.List(
+        TaskType,
+        node_id=graphene.ID()
+    )
+
+    def resolve_node_tasks(root, info, **kwargs):
+        node_id = kwargs.get('node_id')
+        tasks = Task.objects.filter(node__pk=node_id, parent=None)
+
+        return tasks
 
 
 class UpdateNode(graphene.Mutation):
