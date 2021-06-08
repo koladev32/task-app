@@ -1,23 +1,26 @@
-import {gql} from "@apollo/client";
+import { gql } from "@apollo/client";
 
 export const GET_NODE_TASKS = gql`
-  query{
-  nodeTasks(nodeId: 1){
-    title,
-    body,
-    parent {
-      id
-    },
-    subTasks {
-      id,
-      title,
+  query TaskType($nodeId: ID!){
+    nodeTasks (nodeId: $nodeId) {
+      id  
+      title
       body
-    },
-    node{
-      id
+      parent {
+        id
+        title
+      }
+      subTasks {
+        id
+        title
+        body
+      }
+      node {
+        id
+        title
+      }
     }
   }
-}
 `;
 
 export const GET_NODES = gql`
@@ -30,21 +33,28 @@ export const GET_NODES = gql`
 `;
 
 export const GET_TASK_SUBTASKS = gql`
-    query{
-  subTasks(taskId: 2){
-    title,
-    body,
-    parent {
+  query TaskType($taskId: ID!) {
+    subTasks(taskId: $taskId) {
       id
-    },
-    subTasks {
-      id,
-      body,
-      title,
+      title
+      body
       parent {
         id
+        title
+      }
+      subTasks {
+        id
+        body
+        title
+        parent {
+          id
+          title
+        }
+      }
+      node {
+      id
+      title
       }
     }
   }
-}
-`
+`;
