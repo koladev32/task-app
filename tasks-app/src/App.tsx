@@ -1,113 +1,23 @@
-import * as React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-import Task from './components/Task';
-
-const {useState} = React;
-
-const dummyNodeData = [
-    {
-        id: 1,
-        title: 'Work',
-    },
-    {
-        id: 2,
-        title: 'Work',
-    },
-    {
-        id: 3,
-        title: 'Work',
-    },
-];
-
-const dummyTaskData = [
-    {
-        id: 6,
-        title: 'Task',
-        body: 'Do this',
-        subTask: [],
-        node: {
-            id: 1,
-        },
-    },
-    {
-        id: 5,
-        title: 'Task',
-        body: 'Do this',
-        subTask: [],
-        node: {
-            id: 1,
-        },
-    },
-    {
-        id: 4,
-        title: 'Task',
-        body: 'Do this',
-        subTask: [],
-        node: {
-            id: 1,
-        },
-    },
-    {
-        id: 3,
-        title: 'Task',
-        body: 'Do this',
-        subTask: [],
-        node: {
-            id: 1,
-        },
-    },
-    {
-        id: 2,
-        title: 'Task',
-        body: 'Do this',
-        subTask: [
-            {
-                id: 4,
-                title: 'Task',
-                node: {
-                    id: 1,
-                },
-            },
-            {
-                id: '5',
-                title: 'Task',
-                node: {
-                    id: 1,
-                },
-            },
-            {
-                id: '6',
-                title: 'Task',
-                node: {
-                    id: 1,
-                },
-            },
-        ],
-        node: {
-            id: 1,
-        },
-    },
-    {
-        id: 1,
-        title: 'Task',
-        body: 'Do this',
-        subTask: [],
-        node: {
-            id: 1,
-        },
-    },
-];
+import ListTasks from './components/ListTasks';
+import ListNodes from './components/ListNodes';
+import {useQuery} from '@apollo/client';
+import {TaskProps} from './components/Task';
+import {GET_NODES, GET_TASKS} from './apollo/queries';
 
 function App() {
-    // const [fields, setFields] = useState([{ value: null }]);
-    const [tasks, setTasks] = useState(dummyTaskData);
-    console.log(dummyNodeData);
+    const dataNodes = useQuery(GET_NODES);
+
+    const dataTasks = useQuery(GET_TASKS);
+    const [tasks, setTasks] = useState<Array<TaskProps> | null>([]);
 
     function handleAdd() {
+        // @ts-ignore
         const values = [...tasks];
         values.push({
             id: Math.floor(Math.random() * 101),
-            node: {id: Math.floor(Math.random() * 101)},
+            node: {id: Math.floor(Math.random() * 101), title: ''},
             subTask: [],
             title: '',
             body: '',
@@ -132,35 +42,9 @@ function App() {
         <div>
             Hello
             {/*Node*/}
-            <div>
-                <h3>Nodes</h3>
-                <ul>
-                    {dummyNodeData.map((node, index) => {
-                        return (
-                            <li key={index}>
-                                <div>{node.title}</div>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
+            <ListNodes nodes={dataNodes.data.nodes}/>
             {/*Task*/}
-            <div>
-                <h3>Tasks</h3>
-                <ul>
-                    {tasks &&
-                    tasks.map((task, idx) => {
-                        return (
-                            <li key={idx}>
-                                <Task node={task.node.id} body={task.body} taskId={task.id}/>
-                            </li>
-                        );
-                    })}
-                </ul>
-                <button type="button" onClick={() => handleAdd()}>
-                    +
-                </button>
-            </div>
+            <ListTasks tasks={dataTasks.data.tasks} handleAdd={handleAdd}/>
         </div>
     );
 }
