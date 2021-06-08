@@ -1,10 +1,10 @@
 import graphene
 
 from core.nodes.schema import NodeQuery, NodeMutations, NodeTaskQuery
-from core.tasks.schema import TaskQuery, TaskMutations
+from core.tasks.schema import TaskQuery, TaskMutations, TaskSubTasksQuery
 
 
-class Query(graphene.ObjectType, TaskQuery, NodeQuery, NodeTaskQuery):
+class Query(graphene.ObjectType, TaskQuery, NodeQuery, NodeTaskQuery, TaskSubTasksQuery):
     pass
 
 
