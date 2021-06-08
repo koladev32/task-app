@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import ListTasks from "../components/ListTasks";
+import ListTasks from "../../components/ListTasks";
 import { useQuery } from "@apollo/client";
-import { GET_NODE_TASKS } from "../apollo/queries";
-import { TaskProps } from "../components/Task";
+import { GET_NODE_TASKS } from "../../apollo/queries";
+import { TaskProps } from "../../components/Task";
 import { useParams } from "react-router-dom";
 
-const TaskPage: React.FC = () => {
+const NodesTasksPage: React.FC = () => {
   const { nodeId }: any = useParams();
 
   const dataTasks = useQuery(GET_NODE_TASKS, { variables: { nodeId: nodeId } });
@@ -32,4 +32,4 @@ const TaskPage: React.FC = () => {
   );
 };
 
-export default TaskPage;
+export default NodesTasksPage;
