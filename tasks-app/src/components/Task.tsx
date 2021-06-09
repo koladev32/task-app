@@ -1,9 +1,11 @@
 import React from "react";
 import { NodeProps } from "./Node";
 import { useMutation } from "@apollo/client";
-import { UPDATE_TASK } from "../apollo/mutations";
+import { DELETE_TASK, UPDATE_TASK } from "../apollo/mutations";
 import { CREATE_TASK } from "../apollo/mutations";
 import { useHistory } from "react-router";
+import { GET_NODE_TASKS } from "../apollo/queries";
+import { useParams } from "react-router-dom";
 
 export interface TaskProps {
   id?: number | string;
@@ -19,9 +21,28 @@ const KEYS = {
 
 const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
   const history = useHistory();
+  const { nodeId }: any = useParams();
 
   const [updateTask] = useMutation(UPDATE_TASK);
   const [createTask] = useMutation(CREATE_TASK);
+  const [deleteTask] = useMutation(DELETE_TASK, {
+    refetchQueries: [
+      {
+        query: GET_NODE_TASKS,
+        variables: {
+          nodeId: nodeId,
+        },
+      },
+    ],
+  });
+
+  const handleDelete = (id: any) => {
+    deleteTask({
+      variables: {
+        id: id,
+      },
+    });
+  };
 
   const _handleKeyDown = (e: any, id: any) => {
     switch (e.key) {
@@ -32,11 +53,9 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
             body: "New Task added",
             title: "Untitled",
           },
-        }).then((res) => console.log(res.data));
-
+        });
         break;
       case KEYS.BACKSPACE:
-        console.log(props.node.id);
         break;
       default:
         setTimeout(function () {
@@ -62,6 +81,12 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
           onKeyDown={(e) => _handleKeyDown(e, props.id)}
           defaultValue={props.body}
         />
+        <button
+          className="rounded-full h-3 w-3 flex items-center justify-center font-mono"
+          onClick={() => handleDelete(props.id)}
+        >
+          X
+        </button>
       </div>
       <ul className="list-disc flex flex-col ml-32 space-y-3 mt-1">
         {props.subTasks.map((subTask, index) => (
@@ -80,6 +105,12 @@ const Task: React.FC<TaskProps> = (props: TaskProps): React.ReactElement => {
               defaultValue={subTask.body}
               minLength={10}
             />
+            <button
+              className="rounded-full h-3 w-3 flex items-center justify-center font-mono"
+              onClick={() => handleDelete(props.id)}
+            >
+              X
+            </button>
           </div>
         ))}
       </ul>

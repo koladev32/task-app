@@ -27,3 +27,22 @@ export const UPDATE_TASK = gql`
     }
   }
 `;
+
+export const DELETE_TASK = gql`
+  mutation DeleteTask($id: ID!) {
+    deleteTask(id: $id) {
+      id
+    }
+  }
+`;
+
+export const CREATE_NODE = gql`
+  mutation CreateNode($title: String!) {
+    createNode(title: $title) {
+      node {
+        id
+        title
+      }
+    }
+  }
+`;

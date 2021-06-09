@@ -1,7 +1,9 @@
 import React from "react";
 import Node, { NodeProps } from "./Node";
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { CREATE_NODE } from "../apollo/mutations";
+import { GET_NODES } from "../apollo/queries";
 
 interface ListNodesProps {
   nodes: Array<NodeProps>;
@@ -10,8 +12,21 @@ interface ListNodesProps {
 const ListNodes: React.FC<ListNodesProps> = (
   props: ListNodesProps
 ): React.ReactElement => {
-  const history = useHistory();
+  const [createNode] = useMutation(CREATE_NODE, {
+    refetchQueries: [
+      {
+        query: GET_NODES,
+      },
+    ],
+  });
 
+  function handleAdd() {
+    createNode({
+      variables: {
+        title: "Untitled",
+      },
+    });
+  }
   if (!props || !props.nodes) {
     return <div>Loading Nodes</div>;
   }
@@ -29,6 +44,9 @@ const ListNodes: React.FC<ListNodesProps> = (
             </li>
           );
         })}
+        <button type="button" onClick={handleAdd}>
+          +
+        </button>
       </ul>
     </div>
   );

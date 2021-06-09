@@ -11,10 +11,9 @@ const TaskSubTasks: React.FC = () => {
     variables: { taskId: taskId },
   });
 
-
   return (
     <div className="bg-blend-darken h-screen justify-center pt-6 items-center">
-      <ListTasks tasks={dataTasks.data?.subTasks} handleAdd={() => {} } />
+      <ListTasks tasks={dataTasks.data?.subTasks} handleAdd={() => {}} />
     </div>
   );
 };

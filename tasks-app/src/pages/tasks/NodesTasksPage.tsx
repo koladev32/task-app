@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import ListTasks from "../../components/ListTasks";
-import {useMutation, useQuery} from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { GET_NODE_TASKS } from "../../apollo/queries";
 import { useParams } from "react-router-dom";
-import {CREATE_TASK} from "../../apollo/mutations";
+import { CREATE_TASK } from "../../apollo/mutations";
 
 const NodesTasksPage: React.FC = () => {
   const { nodeId }: any = useParams();
   const [createTask] = useMutation(CREATE_TASK, {
-    refetchQueries: [{
-      query: GET_NODE_TASKS,
-      variables: {
-        nodeId: nodeId
-      }
-    }]
+    refetchQueries: [
+      {
+        query: GET_NODE_TASKS,
+        variables: {
+          nodeId: nodeId,
+        },
+      },
+    ],
   });
 
   const dataTasks = useQuery(GET_NODE_TASKS, { variables: { nodeId: nodeId } });

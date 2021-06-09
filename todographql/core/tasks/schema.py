@@ -1,9 +1,6 @@
 import graphene
 from graphene_django.types import DjangoObjectType
 from graphene_subscriptions.events import UPDATED
-from rx import Observable
-from django.core import serializers
-from django.http import JsonResponse
 
 
 from core.tasks.models import Task
