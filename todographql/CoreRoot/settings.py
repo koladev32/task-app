@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "channels",
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     # created apps
     'corsheaders',
     'graphene_django',
+    'graphene_subscriptions',
     'core',
     'core.tasks',
     'core.nodes'
@@ -76,7 +79,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'CoreRoot.wsgi.application'
+ASGI_APPLICATION = 'CoreRoot.asgi.application'
+
 
 
 # Database
@@ -138,3 +142,23 @@ GRAPHENE = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+# Cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/',
+        'OPTIONS': {
+        'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}

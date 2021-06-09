@@ -1,5 +1,11 @@
 import graphene
 from graphene_django.types import DjangoObjectType
+from graphene_subscriptions.events import UPDATED
+from rx import Observable
+from django.core import serializers
+from django.http import JsonResponse
+
+
 from core.tasks.models import Task
 from core.nodes.models import Node
 
@@ -140,3 +146,16 @@ class TaskMutations(graphene.ObjectType):
     update_task = UpdateTask.Field()
     delete_task = DeleteTask.Field()
     create_sub_task = CreateSubTask.Field()
+
+
+# ------------------------------------ Subscriptions
+
+class TaskSubscription(graphene.ObjectType):
+    tasks = graphene.List(TaskType)
+
+    def resolve_tasks(root, info):
+        return root.filter(
+            lambda event:
+            event.operation == UPDATED and
+            isinstance(event.instance, Task)
+        ).map(lambda event: {event.instance})
