@@ -17,23 +17,11 @@ function App() {
     variables: { nodeId: 1 },
   });
 
-  // function handleRemove(i: number) {
-  //     const values = [...fields];
-  //     values.splice(i, 1);
-  //     setFields(values);
-  // }
-
-  // function handleChange(i: number, event: any) {
-  //     const values = [...fields];
-  //     values[i].value = event.target.value;
-  //     setFields(values);
-  //  }
-
   return (
     <Router history={history}>
-      <div className="flex flex-row overflow-hidden space-x-8">
+      <div className="flex flex-row h-screen overflow-hidden space-x-8">
         {/*Node*/}
-        <div className="bg-green-500 h-screen w-1/5 pt-6">
+        <div className="bg-gray-200 h-full w-1/5 pt-6">
           <ListNodes nodes={dataNodes.data?.nodes} />
         </div>
         {/*Task*/}

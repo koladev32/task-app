@@ -1,7 +1,7 @@
 import React from "react";
 import Node, { NodeProps } from "./Node";
 import { useHistory } from "react-router";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 interface ListNodesProps {
   nodes: Array<NodeProps>;
@@ -17,12 +17,12 @@ const ListNodes: React.FC<ListNodesProps> = (
   }
 
   return (
-    <div className="ml-3">
-      <h3 className="text-2xl">Nodes</h3>
+    <div className="ml-8 bg-gray">
+      <h3 className="subpixel-antialiased font-medium">Nodes</h3>
       <ul>
         {props.nodes.map((node, index) => {
           return (
-            <li key={index}>
+            <li className="list-disc" key={index}>
               <Link to={`/nodes/${node.id}`}>
                 <Node id={index} title={node.title} />
               </Link>

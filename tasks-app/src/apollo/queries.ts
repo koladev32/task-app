@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
 
 export const GET_NODE_TASKS = gql`
-  query TaskType($nodeId: ID!){
-    nodeTasks (nodeId: $nodeId) {
-      id  
+  query TaskType($nodeId: ID!) {
+    nodeTasks(nodeId: $nodeId) {
+      id
       title
       body
       parent {
@@ -52,8 +52,8 @@ export const GET_TASK_SUBTASKS = gql`
         }
       }
       node {
-      id
-      title
+        id
+        title
       }
     }
   }
