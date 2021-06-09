@@ -1,0 +1,13 @@
+{
+    "jsRules": {},
+    "rules": {
+        "ordered-imports": false,
+        "import-spacing": true,
+        "jsx-no-lambda": false,
+        "max-line-length": [true, 120],
+        "eofline": true,
+        "no-console": [false, "log"],
+        "no-floating-promises": false
+    },
+    "rulesDirectory": []
+}
