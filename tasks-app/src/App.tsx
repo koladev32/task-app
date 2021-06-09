@@ -8,6 +8,7 @@ import { GET_NODES } from "./apollo/queries";
 
 import { createHashHistory } from "history";
 import { NodesTasksPage, TaskSubTasks } from "./pages/tasks/";
+import Home from "./pages/Home";
 
 const history = createHashHistory();
 
@@ -37,7 +38,7 @@ function App() {
         </div>
         {/*Task*/}
         <Switch>
-          <Route exact path="/" component={() => <div>Hello</div>} />
+          <Route exact path="/" component={Home} />
           <Route path="/nodes/:nodeId" component={NodesTasksPage} />
           <Route path="/tasks/:taskId" component={TaskSubTasks} />
         </Switch>

@@ -1,6 +1,7 @@
 import React from "react";
 import Node, { NodeProps } from "./Node";
 import { useHistory } from "react-router";
+import { Link } from 'react-router-dom';
 
 interface ListNodesProps {
   nodes: Array<NodeProps>;
@@ -22,9 +23,9 @@ const ListNodes: React.FC<ListNodesProps> = (
         {props.nodes.map((node, index) => {
           return (
             <li key={index}>
-              <a onClick={() => history.push(`/nodes/${node.id}`)}>
+              <Link to={`/nodes/${node.id}`}>
                 <Node id={index} title={node.title} />
-              </a>
+              </Link>
             </li>
           );
         })}
